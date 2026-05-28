@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "analysisStartTime": "2026-05-28T23:35:46Z",
+    "assessmentTool": "assessment-skill",
+    "reportId": "20260528233546"
+  },
+  "rules": {},
+  "projects": [
+    {
+      "properties": {
+        "repo": "mnm-ZavaWireTransferService",
+        "languages": ["Java"],
+        "frameworks": ["Servlet"],
+        "tools": ["Gradle"],
+        "applicationType": "Web App"
+      },
+      "incidents": []
+    }
+  ]
+}
