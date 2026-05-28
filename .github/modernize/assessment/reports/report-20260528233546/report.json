@@ -1,0 +1,87 @@
+{
+  "metadata": {
+    "analysisStartTime": "2026-05-28T23:35:46Z",
+    "assessmentTool": "assessment-skill",
+    "reportId": "20260528233546"
+  },
+  "rules": {},
+  "projects": [
+    {
+      "properties": {
+        "repo": "mnm-ZavaWireTransferService",
+        "languages": [
+          "Java"
+        ],
+        "frameworks": [
+          "Servlet"
+        ],
+        "tools": [
+          "Gradle"
+        ],
+        "applicationType": "Web App"
+      },
+      "incidents": []
+    }
+  ],
+  "security": [
+    {
+      "id": "CVE-2023-5072",
+      "title": "Java: DoS Vulnerability in JSON-JAVA",
+      "category": "CVE",
+      "severity": "mandatory",
+      "description": "[CVE-2023-5072](https://github.com/advisories/GHSA-4jq9-2xhw-jpx7): Java: DoS Vulnerability in JSON-JAVA\n\nSeverity: HIGH\n\nAffected dependencies:\n  - org.json:json <= 20230618 (declared at build.gradle:17)",
+      "evidence": {
+        "files": [
+          "build.gradle:17"
+        ],
+        "explanation": "[CVE-2023-5072](https://github.com/advisories/GHSA-4jq9-2xhw-jpx7): Java: DoS Vulnerability in JSON-JAVA\n\nSeverity: HIGH\n\nAffected dependencies:\n  - org.json:json <= 20230618 (declared at build.gradle:17)"
+      },
+      "storyPoint": 1
+    },
+    {
+      "id": "CVE-2022-45688",
+      "title": "json stack overflow vulnerability",
+      "category": "CVE",
+      "severity": "mandatory",
+      "description": "[CVE-2022-45688](https://github.com/advisories/GHSA-3vqj-43w4-2q58): json stack overflow vulnerability\n\nSeverity: HIGH\n\nAffected dependencies:\n  - org.json:json < 20230227 (declared at build.gradle:17)",
+      "evidence": {
+        "files": [
+          "build.gradle:17"
+        ],
+        "explanation": "[CVE-2022-45688](https://github.com/advisories/GHSA-3vqj-43w4-2q58): json stack overflow vulnerability\n\nSeverity: HIGH\n\nAffected dependencies:\n  - org.json:json < 20230227 (declared at build.gradle:17)"
+      },
+      "storyPoint": 1
+    },
+    {
+      "id": "CWE-259",
+      "title": "Use of Hard-coded Password",
+      "category": "Credentials & Secrets",
+      "severity": "optional",
+      "description": "The product contains a hard-coded password, which it uses for its own inbound authentication or for outbound communication to external components.",
+      "evidence": {
+        "files": [
+          "src/main/resources/wire-transfer.properties:5",
+          "src/main/resources/wire-transfer.properties:12"
+        ],
+        "explanation": "Hard-coded passwords are present in application configuration values: db.password and rabbitmq.password in wire-transfer.properties."
+      },
+      "storyPoint": 5
+    },
+    {
+      "id": "CWE-798",
+      "title": "Use of Hard-coded Credentials",
+      "category": "Credentials & Secrets",
+      "severity": "optional",
+      "description": "The product contains hard-coded credentials, such as a password or cryptographic key.",
+      "evidence": {
+        "files": [
+          "src/main/resources/wire-transfer.properties:5",
+          "src/main/resources/wire-transfer.properties:11",
+          "src/main/resources/wire-transfer.properties:12"
+        ],
+        "explanation": "Hard-coded credentials are committed in configuration (db.user/db.password and rabbitmq.user/rabbitmq.password) instead of being exclusively sourced from secure runtime secrets."
+      },
+      "storyPoint": 5
+    }
+  ]
+}
