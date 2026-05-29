@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Tasks template for modernization plan. Generate this file alongside plan.md to track individual migration tasks.",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-runtime-framework",
+      "description": "Upgrade the application runtime/framework baseline to the latest supported Java modernization target.",
+      "reason": "The user explicitly requested modernization to the latest framework before cloud migration work.",
+      "requirements": "Upgrade the application from its current Java EE/Java 11 baseline to a latest supported Java modernization baseline compatible with Azure deployment goals.",
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "002-transform-rabbitmq-to-azure-service-bus",
+      "description": "Modernize application messaging from RabbitMQ to Azure Service Bus.",
+      "reason": "Cloud-native messaging is part of the requested Azure modernization scope.",
+      "requirements": "Migrate RabbitMQ-based messaging flows in the wire transfer service to Azure Service Bus with managed identity authentication.",
+      "dependencies": [
+        "001-upgrade-runtime-framework"
+      ],
+      "skills": [
+        {
+          "name": "migration-java-ee-amqp-rabbitmq-servicebus",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "003-transform-sqlserver-to-azure-sql",
+      "description": "Modernize the data platform from SQL Server connectivity to Azure SQL Database.",
+      "reason": "Cloud-native data services are in scope for Azure modernization.",
+      "requirements": "Migrate the service database integration from current SQL Server deployment assumptions to Azure SQL Database with managed identity authentication.",
+      "dependencies": [
+        "001-upgrade-runtime-framework"
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "transform",
+      "id": "004-transform-secrets-to-key-vault",
+      "description": "Move plaintext/environment-based credential handling to Azure Key Vault.",
+      "reason": "Cloud-native secret management is required for secure Azure modernization.",
+      "requirements": "Migrate application secrets and sensitive connection data from plain properties/environment configuration to Azure Key Vault with managed identity access.",
+      "dependencies": [
+        "001-upgrade-runtime-framework"
+      ],
+      "skills": [
+        {
+          "name": "migration-plaintext-credential-to-azure-keyvault",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "security",
+      "id": "005-security-cve-remediation",
+      "description": "Scan and remediate dependency CVEs before Azure deployment.",
+      "reason": "Security compliance task is mandatory for all modernization plans.",
+      "requirements": "Scan all dependencies for CVEs and remediate known vulnerabilities before deployment. If fixes require major upgrades, document risk and compatibility impact.",
+      "dependencies": [
+        "001-upgrade-runtime-framework",
+        "002-transform-rabbitmq-to-azure-service-bus",
+        "003-transform-sqlserver-to-azure-sql",
+        "004-transform-secrets-to-key-vault"
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    },
+    {
+      "type": "deployment",
+      "id": "006-deployment-azure-container-apps",
+      "description": "Deploy the modernized application to Azure as requested.",
+      "reason": "The user explicitly requested deployment to Azure.",
+      "requirements": "Containerize as needed and deploy the modernized application to Azure Container Apps using existing or newly prepared Azure resources.",
+      "dependencies": [
+        "005-security-cve-remediation"
+      ],
+      "skills": [
+        {
+          "name": "azcli-containerapp-deploy",
+          "location": "builtin"
+        }
+      ],
+      "targetAzureService": "Azure Container Apps",
+      "resourceStatus": "to-be-created",
+      "deploymentTool": "bicep"
+    }
+  ],
+  "metadata": {
+    "planName": "plan",
+    "projectName": "ZavaWireTransferService",
+    "language": "java",
+    "createdAt": "2026-05-29T08:04:41Z",
+    "version": "1.0"
+  }
+}
