@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Tasks template for modernization plan. Generate this file alongside plan.md to track individual migration tasks.",
+  "tasks": [
+    {
+      "type": "security",
+      "id": "001-security-cve-remediation",
+      "description": "Scan and remediate dependency CVEs before broader Azure migration work.",
+      "reason": "Security hardening is required in every modernization plan to reduce risk before additional migration tasks are executed.",
+      "requirements": "Scan all project dependencies for known CVEs and remediate vulnerabilities using minimum patched versions. Document major-version upgrade risks and verify project build and tests after remediation.",
+      "environmentConfiguration": "Use the existing Java 11 and Gradle project environment.",
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "passUnitTests": "true"
+      }
+    }
+  ],
+  "metadata": {
+    "planName": "modernization-plan",
+    "projectName": "mnm-ZavaWireTransferService",
+    "language": "java",
+    "createdAt": "2026-05-29T00:48:24Z",
+    "version": "1.0"
+  }
+}
