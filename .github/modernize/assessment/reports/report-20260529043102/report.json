@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "id": "20260529043102",
+    "analysisStartTime": "2026-05-29T04:31:02Z",
+    "project": "mnm-ZavaWireTransferService"
+  },
+  "rules": {},
+  "projects": [
+    {
+      "name": "mnm-ZavaWireTransferService",
+      "properties": {
+        "repo": "mnm-ZavaWireTransferService",
+        "appName": "ZavaWireTransferService",
+        "languages": [
+          "Java"
+        ],
+        "frameworks": [
+          "Java Servlet"
+        ],
+        "tools": [
+          "Gradle"
+        ]
+      },
+      "incidents": []
+    }
+  ],
+  "security": [
+    {
+      "id": "CWE-259",
+      "title": "Use of Hard-coded Password",
+      "category": "Credentials & Secrets",
+      "severity": "optional",
+      "description": "The product contains a hard-coded password, which it uses for its own inbound authentication or for outbound communication to external components.",
+      "evidence": {
+        "files": [
+          "src/main/resources/wire-transfer.properties:5",
+          "src/main/resources/wire-transfer.properties:12",
+          "Dockerfile:10",
+          "Dockerfile:15"
+        ],
+        "explanation": "Hard-coded passwords are present in configuration defaults (`db.****** `rabbitmq.****** and duplicated as Dockerfile environment defaults."
+      },
+      "storyPoint": 5
+    },
+    {
+      "id": "CWE-778",
+      "title": "Insufficient Logging",
+      "category": "Credentials & Secrets",
+      "severity": "potential",
+      "description": "When a security-critical event occurs, the product either does not record the event or omits important details about the event when logging it.",
+      "evidence": {
+        "files": [
+          "src/main/java/com/zavabank/wiretransfer/WireTransferServlet.java:212",
+          "src/main/java/com/zavabank/wiretransfer/WireTransferServlet.java:250",
+          "src/main/java/com/zavabank/wiretransfer/WireTransferServlet.java:294"
+        ],
+        "explanation": "Multiple exception handlers swallow errors (`catch (Exception ignored)`) during FX, ledger, and event publishing flows without recording details."
+      },
+      "storyPoint": 3
+    },
+    {
+      "id": "CWE-798",
+      "title": "Use of Hard-coded Credentials",
+      "category": "Credentials & Secrets",
+      "severity": "optional",
+      "description": "The product contains hard-coded credentials, such as a password or cryptographic key.",
+      "evidence": {
+        "files": [
+          "src/main/resources/wire-transfer.properties:4",
+          "src/main/resources/wire-transfer.properties:5",
+          "src/main/resources/wire-transfer.properties:11",
+          "src/main/resources/wire-transfer.properties:12",
+          "Dockerfile:9",
+          "Dockerfile:10",
+          "Dockerfile:14",
+          "Dockerfile:15"
+        ],
+        "explanation": "Credential pairs (DB and RabbitMQ username/password defaults) are embedded in repository-tracked configuration files."
+      },
+      "storyPoint": 5
+    }
+  ]
+}
