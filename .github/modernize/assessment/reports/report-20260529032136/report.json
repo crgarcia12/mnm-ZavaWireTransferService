@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "analysisStartTime": "2026-05-29T03:21:36Z",
+    "analysisEndTime": "2026-05-29T03:21:50Z",
+    "assessmentTool": "AppCAT",
+    "assessmentToolVersion": "unknown",
+    "targetIds": ["azure-appservice", "azure-aks", "azure-container-apps"],
+    "targetDisplayNames": ["Azure App Service", "Azure Kubernetes Service", "Azure Container Apps"]
+  },
+  "rules": {},
+  "projects": [
+    {
+      "properties": {
+        "repo": "mnm-ZavaWireTransferService",
+        "appName": "ZavaWireTransferService",
+        "languages": ["Java"],
+        "frameworks": ["Java Servlet API"],
+        "tools": ["Gradle"],
+        "jdkVersion": "11"
+      },
+      "incidents": []
+    }
+  ],
+  "security": [],
+  "rearchitect": []
+}
